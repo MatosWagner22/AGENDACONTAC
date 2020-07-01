@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de Contacto</title>
+    <style>
+        h1 {
+            background-color: black;
+            text-align: center;
+            color: white;
+            width: 90%;
+            padding: 1.3%;
+            font-size: 36px;
+            font-family: inherit;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            margin-top: 2%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        Agenda de Contactos
+    </h1>
+    <div id="app">
+        <v-app>
+            <v-content>
+                <v-container>
+                    <v-layout row>
+                        <v-flex xs6>
+                            <v-form ref="form" class="white ma-5">
+                                <v-text-field class="pa-3" v-model="task" label="Nombre">
+                                </v-text-field>
+                                <v-text-field class="pa-3" v-model="description" label="Descripcion">
+                                </v-text-field>
+                                <v-btn v-if="edit!=true" color="primary" @click="addTask(task,description,$event)">
+                                    Agregar Contacto
+                                </v-btn>
+                                <v-btn v-if="edit==true" color="success" @click="updateTask($event)">
+                                    Actualizar Contacto
+                                </v-btn>
+                                <v-btn v-if="edit==true" color="secondary" @click="cancelTask($event)">
+                                    Cancelar
+                                </v-btn>
+                            </v-form>
+                        </v-flex>
+                        <v-flex xs6>
+                            <v-flex xs12 v-for="(task,index) in tasks">
+                                <v-card class="mb-3">
+                                    <v-card-title ptimary-title>
+                                        <div>
+                                            <h3 class="headline mb-0">Nombre:{{task.task}}</h3>
+                                            <div>Descripcion: {{task.description}}</div>
+                                        </div>
+                                    </v-card-title>
+                                    <v-card-actions v-if="edit==false">
+                                        <v-btn color="warning" @click="editTask(task,index)">Editar</v-btn>
+                                        <v-btn color="error" @click="deleteTask(index)">Borrar</v-btn>
+                                    </v-card-actions>
+                                    <v-card-actions v-if="edit!=false">
+                                        <v-btn disabled color="warning">Editar</v-btn>
+                                        <v-btn disabled color="error">Borrar</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-flex>
+                        </v-flex>
+                    </v-layout>
+                    <v-layout row>
+                        <v-flex xs12>
+                            <v-footer dark>
+                                <v-card class="flex" flat title>
+                                    <v-card-actions class="justify-center">
+                                        <strong>Wagner Matos | 2018-6793</strong>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-footer>
+                        </v-flex>
+                    </v-layout>
+                </v-container>
+            </v-content>
+        </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="JS.js"></script>
+</body>
+
+</html>
